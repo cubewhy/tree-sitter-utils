@@ -16,8 +16,8 @@ Add the dependency:
 ```toml
 [dependencies]
 tree-sitter-combinator = "0.1"
-tree-sitter = "0.23"
-# plus your grammar crate, e.g. tree-sitter-python = "0.23"
+tree-sitter = "0.26"
+# plus your grammar crate, e.g. tree-sitter-python = "0.25"
 ```
 
 Build a handler chain for a fictional language with four node kinds:
@@ -135,14 +135,3 @@ Free-function constructors:
 | `always(value)` | `Always<R>` | Always returns `Some(value.clone())`. |
 | `dispatch_on_kind(table)` | `DispatchOnKind<Ctx, R>` | Static kind→handler lookup table. |
 | `first_of(handlers)` | `FirstOf<Ctx, R>` | Try a `Vec<BoxedHandler>` in order; return first `Some`. |
-
----
-
-## MSRV and dependency policy
-
-- **Minimum Supported Rust Version**: 1.75 (stable, no nightly features).
-- **Mandatory dependency**: `tree-sitter = "0.23"`.
-- **No unsafe code** except `unsafe impl Send/Sync` on predicate structs that
-  wrap `&'static` data (which is trivially safe).
-- Optional utility dependencies may be added behind feature flags in future
-  releases without breaking the MSRV guarantee.

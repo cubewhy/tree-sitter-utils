@@ -58,10 +58,6 @@ impl<Ctx> NodePredicate<Ctx> for KindIs {
     }
 }
 
-// SAFETY: &'static [&'static str] is inherently Send + Sync.
-unsafe impl Send for KindIs {}
-unsafe impl Sync for KindIs {}
-
 /// Predicate: `true` when `node.kind()` is **not** in the given `kinds`.
 ///
 /// # Example
@@ -81,9 +77,6 @@ impl<Ctx> NodePredicate<Ctx> for KindIsNot {
     }
 }
 
-unsafe impl Send for KindIsNot {}
-unsafe impl Sync for KindIsNot {}
-
 /// Predicate: `true` when `node.parent()` has the given `kind`.
 ///
 /// # Example
@@ -102,9 +95,6 @@ impl<Ctx> NodePredicate<Ctx> for HasParentKind {
         input.node.parent().is_some_and(|p| p.kind() == self.0)
     }
 }
-
-unsafe impl Send for HasParentKind {}
-unsafe impl Sync for HasParentKind {}
 
 /// Predicate: `true` when the node depth (root = 0) is at most `max`.
 ///
@@ -133,9 +123,6 @@ impl<Ctx> NodePredicate<Ctx> for NodeDepthLte {
         depth <= self.0
     }
 }
-
-unsafe impl Send for NodeDepthLte {}
-unsafe impl Sync for NodeDepthLte {}
 
 // ---------------------------------------------------------------------------
 // Public constructor functions
@@ -229,10 +216,6 @@ impl<Ctx> NodePredicate<Ctx> for HasAncestorKind {
         false
     }
 }
-
-// SAFETY: `&'static str` is `Send + Sync`; no interior mutability.
-unsafe impl Send for HasAncestorKind {}
-unsafe impl Sync for HasAncestorKind {}
 
 /// Returns a predicate that is `true` when **any strict ancestor** of the
 /// node has the given `kind`.
