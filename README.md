@@ -67,7 +67,7 @@ The original motivation was eliminating patterns like:
 
 ```java
 // Java consumer crate (NOT part of tree-sitter-combinator)
-private String determineLocationImpl(Node node, Context ctx) {
+private String determineLocation(Node node, Context ctx) {
     while (node != null) {
         switch (node.getType()) {
             case "method_declaration":
@@ -102,9 +102,9 @@ fn make_location_handler() -> impl tree_sitter_combinator::Handler<MyJavaCtx, St
         )
         .climb(&["program"]) // ascend until one of the above matches
 }
-# type MyJavaCtx = ();
-# fn label_method(_: &tree_sitter::Node<'_>, _: &()) -> String { String::new() }
-# fn label_class(_: &tree_sitter::Node<'_>, _: &()) -> String { String::new() }
+// type MyJavaCtx = ();
+// fn label_method(_: &tree_sitter::Node<'_>, _: &()) -> String { String::new() }
+// fn label_class(_: &tree_sitter::Node<'_>, _: &()) -> String { String::new() }
 ```
 
 The handler is built once, stored cheaply (no heap allocation in the hot
